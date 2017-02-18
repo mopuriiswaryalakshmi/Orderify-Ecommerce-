@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @whish_list.user_id %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @whish_list.product_id %>
+</p>
+
+<%= link_to 'Edit', edit_whish_list_path(@whish_list) %> |
+<%= link_to 'Back', whish_lists_path %>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Orderify</title>
+  <link href="image/favicon.png" rel="icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Online e-commerce store">
+  <meta name="author" content="DCT Academy">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application' %>
+
+  <!-- JS Part Start-->
+ <script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>
+<script src="../js/jquery.nivo.slider.pack.js"></script>
+<script src="../js/jquery.flexslider.js"></script>
+<script src="../js/jquery.easing-1.3.min.js"></script>
+<script src="../js/jquery.jcarousel.min.js"></script>
+<script src="../js/colorbox/jquery.colorbox-min.js"></script>
+<script src="../js/tabs.js"></script>
+<script src="../js/cloud_zoom.js"></script>
+<script src="../js/jquery.dcjqaccordion.js"></script>
+<script src="../js/custom.js"></script>
+<script src="../js/html5.js"></script>
+<!-- JS Part End-->
+
+<!-- Google Fonts (Droid Sans) Start -->
+<link href='//fonts.googleapis.com/css?family=Droid+Sans&v1' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=&v1' rel='stylesheet' type='text/css'>
+<!-- Google Fonts (Droid Sans) End -->
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="wrapper-box" >
+  <div class="main-wrapper">
+    <!--Header Part Start-->
+    <header id="header">
+      <div class="htop">
+      <% if user_signed_in? %>
+      <div class="links"> 
+        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+        <%= link_to "Registraion", new_user_registration_path %>
+        </div>
+        
+        <% else %>
+        <div class="links"> 
+        <%= link_to "Login", new_user_session_path %>
+        <%= link_to "Registraion", new_user_registration_path %>
+        </div>
+        <% end %>
+      </div>
+      <section class="hsecond">
+        <div id="logo"><a href="/"><img src="../image/logo.png" title="Orderify" alt="Orderify Logo" /></a></div>
+        <div id="search">
+          <div class="button-search"></div>
+          <input type="text" name="search" placeholder="Search" value="" />
+        </div>
+        <!--Mini Shopping Cart Start-->
+           <!--Mini Shopping Cart Start-->
+           <% if user_signed_in? %>
+        <section id="cart">
+          <div class="heading">
+            <h4><img width="32" height="32" alt="" src="../image/cart-bg.png"></h4>
+            <a><span id="cart-total"><%= current_user.line_items.size %> items(s) - INR   <%= current_user.line_items.sum(:total).round(2) %></span></a> </div>
+          <div class="content">
+            <div class="mini-cart-info">
+              <table>
+               <% current_user.line_items.each do |line_item| %>
+                <tr>
+                  <td class="image"><a href="product.html"><img src="../image/product/lotto-sports-shoes-white-47x47.jpg" alt="Lotto Sports Shoes" title="Lotto Sports Shoes" /></a></td>
+                  <td class="name"><a href="product.html"><%= line_item.product.name %></a></td>
+                  <td class="quantity"><%= line_item.quantity %></td>
+                  <td class="total"><%= line_item.total %></td>
+                  <td class="remove"><%= link_to line_item, method: :destroy, data: {conform: "Are u Sure?"} do %><img src="../image/remove-small.png" alt="Remove" title="Remove" />
+                  <% end %>
+                  </td>
+                </tr>
+                <% end %>
+              </table>
+            </div>
+            <div class="mini-cart-total">
+              <table>
+                
+                <tr>
+                  <td class="right"><b>Total:</b></td>
+                  <td class="right"><%= current_user.line_items.sum(:total).round(2) %></td>
+                </tr>
+              </table>
+            </div>
+            <div class="checkout"><a class="button" href="cart.html">View Cart</a> &nbsp; <a class="button" href="checkout.html">Checkout</a></div>
+          </div>
+        </section>
+      <% end %>
+
+
+
+
+
+                <!--Mini Shopping Cart End-->
+        <div class="clear"></div>
+      </section>
+      <%= render '/layouts/navigation' %>
+    </header>
+
+    <!--Header Part End-->
+    <div id="container">
+      <div id="content">
+      <%= alert %>
+      <%= notice %>
+      <%= yield %>
+    </div>
+  </div>
+    <%= render '/layouts/footer' %>
+</div>
+
+
+
+</body>
+</html>

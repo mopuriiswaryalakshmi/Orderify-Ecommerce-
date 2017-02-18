@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Whish Lists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Product</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @whish_lists.each do |whish_list| %>
+      <tr>
+        <td><%= whish_list.user.email %></td>
+        <td><%= whish_list.product.name %></td>
+        <td><%= link_to 'Show', whish_list %></td>
+        <td><%= link_to 'Edit', edit_whish_list_path(whish_list) %></td>
+        <td><%= link_to 'Destroy', whish_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Whish list', new_whish_list_path %>

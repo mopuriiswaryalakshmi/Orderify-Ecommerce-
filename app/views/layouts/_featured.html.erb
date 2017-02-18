@@ -1,0 +1,68 @@
+      <div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Cart</h4>
+      </div>
+      <div class="modal-body">
+        
+       
+            <table>
+              <thead>
+                <tr>
+                  <td class="image">Image</td>
+                  <td class="name">Product Name</td>
+                  <td class="model">Category</td>
+                  <td class="quantity">Quantity</td>
+                  <td class="price">Unit Price</td>
+                  <td class="total">Total</td>
+                </tr>
+              </thead>
+              <tbody>
+              
+              <% LineItem.all.each do |line_item| %>
+                <tr>
+                    <td class="image"><a href="<%= product_path(line_item.product) %>"><img src="../image/product/ipod_classic_1-45x45.jpg" alt="iPad Classic" /></a></td>
+                    <td class="name"><a href="<%= product_path(line_item.product) %>"><%= line_item.product.name.capitalize %></a></td>
+                    <td class="model"><%= line_item.product.category.name.capitalize %></td>
+
+                    <td class="quantity">
+                     <%= form_for line_item do |f| %>
+                     <%= f.text_field :quantity, size: 1, class: "w30" %>
+                      &nbsp;
+                     
+                      <%= f.submit "update", :type => :image, :src=>"image/update.png" %>
+
+                      <% end %>
+
+                      <%= link_to line_item, method: :delete, data: {confirm: "Are you sure?"} do %>
+                          <img title="Remove" alt="Remove" src="../image/remove.png"></a>
+                      <% end %>
+                      &nbsp;</td>
+
+
+                    <td class="price">INR <%= line_item.product.price %></td>
+                    <td class="total">INR <%= line_item.quantity * line_item.product.price %></td>
+                </tr>
+                <% end %>
+                
+              </tbody>
+            </table>
+          
+        
+        
+
+        <!--Mini Shopping Cart End-->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+        <!--Mini Shopping Cart Start-->
